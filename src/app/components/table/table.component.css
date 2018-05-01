@@ -1,0 +1,8 @@
+.material-icons {
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+#icons-edit-remove {
+    min-width: 80px;
+}

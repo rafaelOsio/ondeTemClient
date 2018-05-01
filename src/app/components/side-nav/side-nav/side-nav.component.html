@@ -1,0 +1,32 @@
+<header>
+	<app-nav-bar *ngIf="isAuth"></app-nav-bar>
+</header>
+
+<div *ngIf="isAuth">
+	<mz-sidenav
+	#sidenav
+	[id]="'sidenav-demo'"
+	[collapseButtonId]="'btn-sidenav-demo'"
+	[fixed]="'true'"
+	[width]="'250'">
+
+		<mz-sidenav-header>
+			<div id="user-view">
+				<div class="row reset" id="img-perfil-div">
+					<img id="img-perfil" class="circle z-depth-1" src="../../assets/imgs/logo.png">
+				</div>
+				<div class="row reset" id="name-div">
+					<span class="white-text name">{{isAdmin ? "ADMINISTRADOR" : "LOJISTA"}}</span>
+				</div>
+			</div>
+		</mz-sidenav-header>
+
+
+		<mz-sidenav-link>
+			<a *ngIf="isAdmin" [routerLink]="['categorias']"><i class="material-icons">folder</i>Categorias</a>
+			<a [routerLink]="['produtos']"><i class="material-icons">equalizer</i>Produtos</a>
+		</mz-sidenav-link>
+
+	</mz-sidenav>
+
+</div>

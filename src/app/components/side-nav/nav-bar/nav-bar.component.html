@@ -1,0 +1,27 @@
+<div class="navbar-fixed">
+	<mz-navbar [navbarClass]="'blue darken-2'">
+		<mz-navbar-item-container [align]="'right'">
+			<mz-navbar-item>
+				<span class="truncate" #menuTrigger (click)="openMenu()"><i class="material-icons reset left" id="btn-sidenav">account_circle</i></span>
+			</mz-navbar-item>
+		</mz-navbar-item-container>
+		<mz-navbar-item-container [align]="'left'">
+			<mz-navbar-item>
+				<a mz-button><span class="truncate"><i class="material-icons reset left">menu</i></span></a>
+			</mz-navbar-item>
+		</mz-navbar-item-container>
+	</mz-navbar>
+</div>
+
+<div #menu *ngIf="menu" class="z-depth-1" id="menu">
+	<div class="row reset">
+		<div class="col s12 m12 l12 blue z-depth-1 reset" id="header-menu">
+			<img src="../../../../assets/imgs/avatar.png" id="image-menu">
+		</div>
+	</div>
+	<div class="row reset">
+		<div class="col s12 m12 l12 reset" id="item-menu">
+			<span (click)="sair();">Sair</span>
+		</div>
+	</div>
+</div>

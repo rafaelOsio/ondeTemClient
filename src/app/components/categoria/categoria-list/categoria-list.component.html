@@ -1,0 +1,66 @@
+<main>
+	<app-delete-modal #delete (deleteEmitter)="deleteDB($event);"></app-delete-modal>
+	<div class="row z-depth-1 reset" id="header">
+		<div class="container-component">
+
+			<div class="col s6 m6 l6 reset" id="div-titulo">
+				<span class="col s6 m6 l6 reset" id="titulo">Categorias</span> 
+			</div>
+
+			<div class="col s6 m6 l6 reset" id="div-btn-novo">
+				<button class="waves-effect waves-light btn blue" mz-button (click)="modalCategoria.open()" id="btn-novo">NOVO</button>
+			</div>
+
+			<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+				<mz-modal #modalCategoria [fixedFooter]="true" [options]="modalOptions">
+
+					<mz-modal-header>
+						<h4>Categoria</h4>
+					</mz-modal-header>
+
+
+					<mz-modal-content>
+						<mz-input-container class="col s12 m12 l12" id="formulario">
+							<input mz-input mz-validation required
+							formControlName="nome"
+							type="text"
+							id="input-name"
+							[errorMessageResource]="validateFields.nome"
+							[label]="'Nome:'" />
+						</mz-input-container>
+
+						<mz-input-container class="col s12 m12 l12">
+							<input mz-input mz-validation
+							formControlName="descricao"
+							type="text"
+							id="input-description"
+							[errorMessageResource]="validateFields.descricao"
+							[label]="'Descricao:'" />
+						</mz-input-container>
+
+						<app-loader *ngIf="loadingModal; "></app-loader>
+
+					</mz-modal-content>					
+
+					<mz-modal-footer>
+						<a class="waves-effect waves-blue btn-flat white" mz-modal-close>VOLTAR</a>
+						<button [disabled]="!form.valid" type="submit" class="waves-effect waves-blue btn-flat white" mz-button>SALVAR</button>
+					</mz-modal-footer>
+
+				</mz-modal>
+			</form>
+		</div>
+	</div>
+
+	<app-loader *ngIf="loadingList; else table"></app-loader>
+
+	<ng-template #table>
+		<div class="container-component">
+			<app-table [tableConfigurations]="tableConfig"
+						[data]="obj"
+						(edit)="getById($event)"
+						(delete)="delete.open($event)"></app-table>
+		</div>
+	</ng-template>
+
+</main>

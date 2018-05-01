@@ -1,0 +1,87 @@
+.reset {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 85%;
+}
+
+#background {
+    height: 300px;
+    background-color: #2b78e4;
+}
+
+#modal-login {
+    height: 600px;
+    left: 25%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    background-color: white;
+    border-radius: 3px;
+}
+
+#div-img-logo {
+    margin-top: 20px;
+    left: 25%;
+    text-align: center;
+    position: relative;
+    width: 50%;
+}
+
+#img-logo {
+    width: 100%;
+    max-width: 200px;
+}
+
+#div-nome-empresa {
+    font-size: 20px;
+}
+
+#main-modal {
+    margin-top: 50px;
+}
+
+#trial {
+    margin-top: 30px;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+#trial:hover {
+    text-decoration: underline;
+}
+
+#footer-modal {
+    margin-top: 60px;
+}
+
+#div-btn-entrar {
+    margin-top: 40px;
+}
+
+#btn-entrar {
+    width: 100%;
+}
+
+#aguarde {
+    text-align: center;
+}
+
+@media only screen and (max-width : 599px) {
+    #modal-login {
+      left: 8%;
+    }
+
+    #div-img-logo {
+        left: 10%;
+        width: 80%;
+    }
+}
+
+@media only screen and (min-width : 992px) {
+    #modal-login {
+      left: 33%;
+    }
+}

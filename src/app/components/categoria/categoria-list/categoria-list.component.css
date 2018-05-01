@@ -1,0 +1,55 @@
+.reset {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.container-component {
+    width: 85%;
+    margin: 0 auto;
+}
+
+#header {
+    margin-top: 36px !important;
+}
+
+#titulo {
+    font-size: 33px;
+}
+
+#btn-novo {
+    float: right;
+    margin-top: 7px;
+}
+
+table.highlight tbody tr:hover {
+    background-color: #ddd !important;
+}
+
+/* modal */
+h4 {
+    font-size: 25px;
+    text-align: center;
+}
+
+#formulario {
+    padding-top: 30px;
+}
+
+#response-server {
+    text-align: center;
+}
+/* */
+
+header, main, footer {
+    padding-left: 250px;
+}
+
+@media only screen and (max-width : 992px) {
+    header, main, footer {
+        width: 100%;
+        padding-left: 0;
+    }
+    .container-component {
+        margin: 0 auto;
+    }
+}

@@ -1,0 +1,84 @@
+<div class="container">
+  
+	<div class="row" id="form-container">
+		<form [formGroup]="formProduto" id="form-container" (ngSubmit)="submitForm()" novalidate>
+			
+			<div class="row reset">
+				<mz-input-container class="col s12 m6 l4">
+					<input mz-input mz-validation required
+						[(ngModel)]="object.nome"	
+						formControlName="nome"
+						type="text"
+						id="input-name"
+						[errorMessageResource]="validateFields.nome"
+						[label]="'Nome:'" />
+				</mz-input-container>
+	
+				<mz-input-container class="col s12 m6 l4">
+					<input mz-input mz-validation
+						[(ngModel)]="object.descricao"
+						formControlName="descricao"
+						type="text"
+						id="input-descricao"
+						[errorMessageResource]="validateFields.descricao"
+						[label]="'Descrição:'" />
+				</mz-input-container>
+	
+				<mz-select-container class="col s12 m3 l4">
+					<select mz-select mz-validation required
+						[(ngModel)]="object.categoriaId"
+						formControlName="categoriaId"
+						id="input-categoria"
+						[errorMessageResource]="validateFields.categoriaId"
+						[label]="'Categoria'"
+						[placeholder]="'Selecione'">
+	
+						<option *ngFor="let item of categorias" [value]="item.id">{{item.nome}}</option>
+					  
+					</select>
+				  </mz-select-container>
+			</div>
+
+			<div class="row reset">
+				<div class="col s12 m12 l12">
+					
+					<div id="imagePreviewContainer" *ngIf="imagePreview; else selectImage" (click)="file.click();">
+						<img id="imagePreview" [src]="imagePreview">
+					</div>
+					<ng-template #selectImage>
+						<div id="container-image" #preview (click)="file.click();">
+							
+							<div id="image-select">
+								<i class="material-icons large" id="searc-image">search</i>						
+							</div>
+							<div>
+								<p id="search-image-title">Selecione a imagem do produto</p>
+							</div>
+						</div>
+					</ng-template>
+					<mz-input-container class="col s6 m4 l4">
+						<div class="row">
+							<div class="col s3 m3 l3 reset">
+								<input id="input-file" type="file" (change)="fileChange($event);" #file accept="image/*"/> 
+							</div>
+						</div>
+					</mz-input-container>
+				</div>
+			</div>
+
+			<div class="col s12 m12 l12">
+				<button [disabled]="!formProduto.valid" type="submit" class="col s4 m3 l3 waves-effect waves-light btn blue reset" id="buttons" mz-button>SALVAR</button>
+				<a [routerLink]="['/dashboard/produtos']" class="col s3 m2 l2 waves-effect waves-light btn red reset" id="buttons">VOLTAR</a>
+			</div>
+
+		</form>
+	</div>
+
+	<mz-modal #modalLoading [options]="modalOptions">
+		<mz-modal-content>
+			<app-loader></app-loader>
+			<p id="aguarde">Aguarde...</p>
+		</mz-modal-content>
+	</mz-modal>
+
+</div>

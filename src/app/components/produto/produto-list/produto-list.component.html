@@ -1,0 +1,15 @@
+<div class="container">
+	<app-delete-modal #delete (deleteEmitter)="deleteDB($event);"></app-delete-modal>
+	
+	
+		<app-loader *ngIf="loadingList; else table"></app-loader>
+
+		<ng-template #table>
+			<app-table [tableConfigurations]="tableConfig"
+						[data]="produtos"
+						(edit)="edit($event)"
+						(delete)="delete.open($event)">
+			</app-table>
+		</ng-template>
+
+</div>

@@ -1,0 +1,10 @@
+.reset {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.container {
+    width: 85%;
+    margin: 0 auto;
+    margin-top: 20px;
+}

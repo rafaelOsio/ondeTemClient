@@ -1,0 +1,30 @@
+<mz-modal #modalFileUpload id="file-upload-modal">
+	<mz-modal-content id="drop-image">
+
+		<p id="title">Selecione a imagem do seu estabelecimento</p>
+		
+		<div>
+			<div class="file-upload">
+				<span class="text">upload</span>
+				<input id="custom-input" type="file" (change)="fileChangeListener($event)">
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s12 m6 l6">
+				<div>
+					<img-cropper #cropper [image]="data.image" [settings]="cropperSettings"></img-cropper>
+				</div>
+			</div>
+			<div class="col s12 m6 l6">
+				<img *ngIf="data.image" [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+			</div>
+		</div>
+
+	</mz-modal-content>
+
+	<mz-modal-footer>
+		<button type="submit" class="btn-floating waves-effect waves-blue btn-flat red white-text" mz-button (click)="teste();">X</button>
+		<button type="submit" class="btn-floating waves-effect waves-blue btn-flat green white-text" mz-button id="accept-image">></button>
+	</mz-modal-footer>
+</mz-modal>

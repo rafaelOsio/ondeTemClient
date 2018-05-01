@@ -1,0 +1,131 @@
+<div class="container">
+
+	<div class="row" id="form-container">
+		<form [formGroup]="formEstabelecimento" (ngSubmit)="onSubmit()" novalidate>
+
+			<mz-input-container class="col s12 m12 l12">
+				<input mz-input mz-validation required
+					[(ngModel)]="object.nome"
+					formControlName="nome"
+					type="text"
+					id="input-name"
+					[errorMessageResource]="validateFields.nome"
+					[label]="'Nome:'" />
+			</mz-input-container>
+
+			<mz-input-container class="col s6 m3 l3">
+				<input mz-input mz-validation required
+					[(ngModel)]="object.rua"
+					formControlName="rua"
+					type="text"
+					id="input-rua"
+					[errorMessageResource]="validateFields.rua"
+					[label]="'Rua:'" />
+			</mz-input-container>
+
+			<mz-input-container class="col s6 m3 l3">
+				<input mz-input mz-validation required
+					[(ngModel)]="object.numero"
+					formControlName="numero"
+					type="text"
+					id="input-numero"
+					[errorMessageResource]="validateFields.numero"
+					[label]="'Numero:'" />
+			</mz-input-container>
+		
+			<mz-input-container class="col s6 m3 l3">
+				<input mz-input mz-validation required
+					[(ngModel)]="object.bairro"
+					formControlName="bairro"
+					type="text"
+					id="input-bairro"
+					[errorMessageResource]="validateFields.bairro"
+					[label]="'Bairro:'" />
+			</mz-input-container>
+
+			<mz-input-container class="col s6 m3 l3">
+				<input mz-input mz-validation
+					[(ngModel)]="object.complemento"
+					formControlName="complemento"
+					type="text"
+					id="input-complemento"
+					[errorMessageResource]="validateFields.complemento"
+					[label]="'Complemento:'" />
+			</mz-input-container>
+		
+			<mz-input-container class="col s6 m6 l3">
+				<input mz-input mz-validation required
+					[(ngModel)]="object.telefonePrincipal"
+					formControlName="telefonePrincipal"
+					type="text"
+					(keyup)="object.telefonePrincipal = replaceNumber(object.telefonePrincipal);"
+					maxlength="14"
+					id="input-telefonePrincipal"
+					[errorMessageResource]="validateFields.telefonePrincipal"
+					[label]="'Telefone principal:'" />
+			</mz-input-container>
+
+			<mz-input-container class="col s6 m6 l3">
+				<input mz-input mz-validation
+					[(ngModel)]="object.telefoneSecundario"
+					formControlName="telefoneSecundario"
+					type="text"
+					id="input-telefoneSecundario"
+					(keyup)="object.telefoneSecundario = replaceNumber(object.telefoneSecundario);"
+					maxlength="14"
+					[errorMessageResource]="validateFields.telefoneSecundario"
+					[label]="'Telefone secundário:'" />
+			</mz-input-container>
+
+			<mz-input-container class="col s12 m6 l6">
+				<input mz-input mz-validation
+					[(ngModel)]="object.mensagemParaClientes"
+					formControlName="mensagemParaClientes"
+					type="text"
+					id="input-mensagemParaClientes"
+					[errorMessageResource]="validateFields.mensagemParaClientes"
+					[label]="'Mensagem aos clientes:'" />
+			</mz-input-container>
+
+			<div class="row reset">
+					<div class="col s12 m12 l12">
+						
+						<div id="imagePreviewContainer" *ngIf="imagePreview; else selectImage" (click)="file.click();">
+							<img id="imagePreview" [src]="imagePreview">
+						</div>
+						<ng-template #selectImage>
+							<div id="container-image" #preview (click)="file.click();">
+								
+								<div id="image-select">
+									<i class="material-icons large" id="searc-image">search</i>						
+								</div>
+								<div>
+									<p id="search-image-title">Selecione a imagem do seu estabelecimento</p>
+								</div>
+							</div>
+						</ng-template>
+						<mz-input-container class="col s6 m4 l4">
+							<div class="row">
+								<div class="col s3 m3 l3 reset">
+									<input id="input-file" type="file" (change)="fileChange($event);" #file accept="image/*"/> 
+								</div>
+							</div>
+						</mz-input-container>
+					</div>
+				</div>
+			
+			<div class="col s12 m12 l12">
+				<button [disabled]="!formEstabelecimento.valid || isSubmit" type="submit" class="col s4 m3 l3 waves-effect waves-light btn blue reset" id="buttons" mz-button>SALVAR</button>
+				<a [routerLink]="['/dashboard/estabelecimentos']" class="col s3 m2 l2 waves-effect waves-light btn red reset" id="buttons">VOLTAR</a>
+			</div>
+		
+		</form>
+	</div>
+
+	<mz-modal #modalLoading [options]="modalOptions">
+		<mz-modal-content>
+			<app-loader></app-loader>
+			<p id="aguarde">Aguarde...</p>
+		</mz-modal-content>
+	</mz-modal>
+</div>

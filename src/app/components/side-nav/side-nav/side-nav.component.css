@@ -1,0 +1,24 @@
+.reset {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+#user-view {
+    background-color: #2b78e4;
+    height: 150px;
+    text-align: center;
+}
+
+#img-perfil-div {
+    max-height: 110px;
+}
+
+#img-perfil {
+    background-color: white;
+    margin-top: 20px;
+    width: 100px !important;
+    height: 100px !important;
+}
+
+#name-div {
+    font-size: 18px;
+}

@@ -1,0 +1,50 @@
+.reset {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#btn-sidenav {
+    padding-right: 10px !important;
+}
+
+.material-icons {
+    cursor: pointer;
+}
+
+#menu {
+    left: 85%;
+    top: 8%;
+    z-index: 999;
+    position: absolute;
+    min-width: 50px;
+    width: 13%;
+    /*height: 300px;*/
+    background-color: white;
+    border-radius: 2px;
+    border: 1px solid #eee;
+}
+
+#header-menu {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+    text-align: center;
+}
+
+#image-menu {
+    margin-top: 10px;
+    margin-bottom: 8px;
+    width: 90%;
+    max-width: 60px;
+}
+
+
+#item-menu {
+    cursor: pointer;
+    text-align: center;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+#item-menu:hover {
+    text-decoration-line: underline;
+}

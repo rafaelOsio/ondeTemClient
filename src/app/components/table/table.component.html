@@ -1,0 +1,20 @@
+<table class="highlight">
+	<thead>
+		<tr>
+			<th *ngFor="let item of tableConfigurations?.columns">{{item.title}}</th>
+			<th *ngIf="!tableConfigurations?.readOnly">Ação</th>
+		</tr>
+	</thead>
+
+	<tbody *ngIf="data">
+		<tr *ngFor="let item of data" (dblclick)="editEvent(item.id)">
+			<td *ngFor="let column of tableConfigurations?.columns">
+				<span [innerHTML]="renderizaString(item, column)"></span>
+			</td>
+			<td id="icons-edit-remove" *ngIf="!tableConfigurations?.readOnly">
+				<i class="material-icons" (click)="editEvent(item.id)">edit</i>
+				<i class="material-icons" (click)="deleteEvent(item.id)">delete</i>
+			</td>
+		</tr>
+	</tbody>
+</table>
