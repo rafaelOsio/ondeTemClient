@@ -121,6 +121,7 @@ export class ProdutoFormComponent implements OnInit {
 				this.toastService.show(res.message, 4000, "green");
 				this.formProduto.reset();
 				this.modalLoading.close();
+				this.imagePreview = "";
 			})
 			.catch((err) => {
 				this.toastService.show("Ocorreu um erro. Tente novamente.", 4000, 'red');
