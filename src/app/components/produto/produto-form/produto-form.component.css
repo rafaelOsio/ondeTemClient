@@ -71,6 +71,10 @@
     #container-image {
         width: 60%;
     }
+    .container {
+        width: 95%;
+        margin: 0 auto;
+    }
 }
 
 @media only screen and (max-width : 600px) {
