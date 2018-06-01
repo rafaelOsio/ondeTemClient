@@ -10,7 +10,9 @@ export class BaseService {
 	constructor(public httpClient: HttpClient,
 				private authS: AuthService) { }
 
-	urlAPI = 'http://localhost:5000/api';
+	/*urlAPI = 'http://localhost:5000/api';	*/	//teste local
+
+	urlAPI = 'http://45.55.248.8:4174/api';
 
 	changeToken(response: Observable<any>) {
 		response.filter((res: any, index: number) => {

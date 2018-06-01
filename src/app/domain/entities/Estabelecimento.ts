@@ -19,6 +19,7 @@ export class Estabelecimento extends Entity {
     desativado: boolean;
     mensagemParaClientes: string;
     produtos: Produto[] = [];
+    caminhoImage: string;
     imageHash?: string;
 
     rememberEmail: boolean;

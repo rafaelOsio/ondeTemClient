@@ -6,6 +6,7 @@ import { EstabelecimentoService } from '../service/estabelecimento.service';
 import { IResponse } from '../../../domain/interfaces/IResponse';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Estabelecimento } from '../../../domain/entities/Estabelecimento';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
 	selector: 'app-estabelecimento-form',
@@ -15,7 +16,7 @@ import { Estabelecimento } from '../../../domain/entities/Estabelecimento';
 export class EstabelecimentoFormComponent implements OnInit {
 
 	@Input() object: Estabelecimento = new Estabelecimento;
-	formEstabelecimento: FormGroup;	
+	formEstabelecimento: FormGroup = this.buildForm();
 	isSubmit: boolean = false;
 
 	imagePreview: any = "";
@@ -26,7 +27,8 @@ export class EstabelecimentoFormComponent implements OnInit {
 				private estabelecimentoService: EstabelecimentoService,
 				private toastService: MzToastService,
 				private router: Router,
-				private active: ActivatedRoute) {
+				private active: ActivatedRoute,
+				private authS: AuthService) {
 	}
 
 	public modalOptions: Materialize.ModalOptions = {
@@ -34,33 +36,24 @@ export class EstabelecimentoFormComponent implements OnInit {
 	};
 
 	ngOnInit() {
-		this.buildForm();
-		this.getParam();
-	}
-
-	getParam() {
-		this.active.params.subscribe((params) => {
-			const id = params.id;
-			if(id){
-				this.getById(id);
-			}
-		})
+		this.getById(this.authS.currentUser.id);
 	}
 
 	replaceNumber(number) {
 		if (!number) return;
 	
 		number = number.replace(/([a-zA-Z-()\s$%@!])/g, '');
-		number = number.replace(/^(\d{2})/g,'($1)')
+		number = number.replace(/^(\d{2})/g,'($1)');
 		number = number.replace(/(\d{1})(\d{4})/g, '$1$2-');
 	
 		return number;
 	  }
 
 	getById(id) {
-		this.estabelecimentoService.GetById(id).toPromise()
+		this.estabelecimentoService.GetById(id)
 			.then((res: IResponse) => {
 				this.object = res.data;
+				console.log(this.object);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -74,9 +67,6 @@ export class EstabelecimentoFormComponent implements OnInit {
 		if(this.object.id) {
 			this.editDb();
 		} 
-		else {
-			this.insertDB();
-		}
 
 		this.isSubmit = false;
 	}
@@ -95,34 +85,13 @@ export class EstabelecimentoFormComponent implements OnInit {
 		myReader.readAsDataURL(file);
 	}
 
-	insertDB() {
-		
-		this.modalLoading.open();
-
-		//temporário
-		this.object.latitude = 0;
-		this.object.longitude = 0;
-
-		this.estabelecimentoService.Post(this.object).toPromise()
-			.then((res: IResponse) => {
-				this.toastService.show(res.message, 4000, 'green');
-				this.formEstabelecimento.reset();
-				this.modalLoading.close();
-				this.router.navigate(["/dashboard/estabelecimentos"])
-			})
-			.catch((err: IResponse) => {
-				this.toastService.show(err.error.message, 4000, 'green');
-				this.modalLoading.close();
-			})
-	}
-
 	editDb() {
 		this.modalLoading.open();
 
-		this.estabelecimentoService.Put(this.object, this.object.id).toPromise()
+		this.estabelecimentoService.Put(this.object, this.object.id)
 			.then((res: IResponse) => {
 				this.toastService.show(res.message, 4000, 'green');
-				this.router.navigate(["/dashboard/estabelecimentos"])
+				this.estabelecimentoService.updateEstabelecimento.emit();
 				this.modalLoading.close();
 			})
 			.catch((err: IResponse) => {
@@ -132,7 +101,7 @@ export class EstabelecimentoFormComponent implements OnInit {
 	}
 
 	buildForm() {
-		this.formEstabelecimento = this.formBuilder.group({
+		return this.formEstabelecimento = this.formBuilder.group({
 			nome: [null, Validators.compose([
 				Validators.required,
 				Validators.maxLength(65)

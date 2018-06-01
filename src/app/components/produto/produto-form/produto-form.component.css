@@ -25,6 +25,11 @@
     text-align: center;
 }
 
+.cropper {
+    background-color: white;
+    border: 1px solid #000;
+}
+
 #container-image {
     cursor: pointer;
     background-color: #eee;

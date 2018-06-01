@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { MzNavbarComponent, MzSidenavComponent } from 'ng2-materialize';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
+import { EstabelecimentoService } from '../../estabelecimento/service/estabelecimento.service';
+import { Estabelecimento } from '../../../domain/entities/Estabelecimento';
+import { IResponse } from '../../../domain/interfaces/IResponse';
 
 @Component({
   selector: 'app-nav-bar',
@@ -31,7 +35,7 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  
   sair() {
     window.sessionStorage.clear();
     this.router.navigate(['/login']);

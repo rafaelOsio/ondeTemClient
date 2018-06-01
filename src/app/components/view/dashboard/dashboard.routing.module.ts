@@ -13,11 +13,9 @@ import { AuthGuard } from '../../../guards/auth.guard';
 
 const dashboardRoutes = [
     {path: 'dashboard', canActivate: [AuthGuard], component: DashboardComponent, children: [
-        /*{path: 'estabelecimentos', canActivate: [AuthGuard], component: EstabelecimentoComponent, children: [
-            {path: 'editar/:id', canActivate: [AuthGuard], component: EstabelecimentoFormComponent},
-            {path: 'novo', canActivate: [AuthGuard], component: EstabelecimentoFormComponent},
-            {path: '', canActivate: [AuthGuard], component: EstabelecimentoListComponent},
-        ]},*/   
+        {path: 'estabelecimento', canActivate: [AuthGuard], component: EstabelecimentoComponent, children: [
+            {path: '', canActivate: [AuthGuard], component: EstabelecimentoFormComponent},
+        ]},
         { path: 'categorias', canActivate: [AuthGuard], component: CategoriaListComponent },
         { path: 'produtos', canActivate: [AuthGuard], component: ProdutoComponent, children: [
             {path: 'editar/:id', canActivate: [AuthGuard], component: ProdutoFormComponent},

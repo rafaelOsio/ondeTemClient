@@ -31,7 +31,7 @@ export class EstabelecimentoListComponent implements OnInit {
 
   loadList() {    
     this.loading = true;
-    this.estabelecimentoService.GetAll().toPromise()
+    this.estabelecimentoService.GetAll()
       .then((res: IResponse) => {
         this.items = res.data;
         this.items.map((item) => {
@@ -45,7 +45,7 @@ export class EstabelecimentoListComponent implements OnInit {
   }
 
   deleteDB(id) {
-    this.estabelecimentoService.Delete(id).toPromise()
+    this.estabelecimentoService.Delete(id)
       .then((res:IResponse) => {
         this.items = this.items.filter((item) => {          
           return item.id !== id;

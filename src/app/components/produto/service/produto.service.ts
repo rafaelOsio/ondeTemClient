@@ -5,7 +5,7 @@ import { IServiceCrud } from '../../../domain/interfaces/IServiceCrud';
 import { IResponse } from '../../../domain/interfaces/IResponse';
 import { BaseService } from '../../../services/base.service';
 import { Produto } from '../../../domain/entities/Produto';
-import { dataBancoParaDataTabela, pegaHorarioDaData, moedaBancoParaMoedaPt } from '../../../helper';
+import { dataBancoParaDataTabela, pegaHorarioDaData, moedaBancoParaMoedaPt, moedaParaDecimal, moeda } from '../../../helper';
 
 @Injectable()
 export class ProdutoService implements IServiceCrud {
@@ -31,12 +31,22 @@ export class ProdutoService implements IServiceCrud {
             })
     }
     GetById(id: any) {
-        return this.baseS.GetById(this.urlAPI, id).toPromise();
+        return this.baseS.GetById(this.urlAPI, id).toPromise()
+        .then((res) => {
+            
+            res.data.preco = moeda(res.data.preco);
+            
+            return res;
+        })
     }
     Post(data: any) {
+        data.preco = moedaParaDecimal(data.preco);
+
         return this.baseS.Post(this.urlAPI, data).toPromise();
     }
     Put(data: any, id: any) {
+        data.preco = moedaParaDecimal(data.preco);
+
         return this.baseS.Put(this.urlAPI, data, id).toPromise();
     }
     Delete(id: any) {

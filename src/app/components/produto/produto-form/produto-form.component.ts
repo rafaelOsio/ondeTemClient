@@ -11,10 +11,13 @@ import { Produto } from '../../../domain/entities/Produto';
 import { MzToastService, MzModalComponent } from 'ng2-materialize';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import { moeda } from '../../../helper';
+import { CropperSettings } from 'ngx-img-cropper';
+import { FileUploadService } from '../../../services/fileUpload.service';
 
 @Component({
 	selector: 'app-produto-form',
-	templateUrl: './produto-form.component.html',
+	templateUrl: './produto-form.component.html',	
 	styleUrls: ['./produto-form.component.css']
 })
 export class ProdutoFormComponent implements OnInit {
@@ -24,6 +27,7 @@ export class ProdutoFormComponent implements OnInit {
 	formProduto: FormGroup;
 	categorias: Categoria[] = [];
 
+	imageUpload: any = null;
 	imagePreview: any = "";
 
 	constructor(private formBuilder: FormBuilder,
@@ -32,7 +36,10 @@ export class ProdutoFormComponent implements OnInit {
 		private toastService: MzToastService,
 		private active: ActivatedRoute,
 		private router: Router,
-		private authS: AuthService) { }
+		private authS: AuthService,
+		private fileUploadS: FileUploadService) {
+
+	}
 
 	ngOnInit() {
 		this.buildForm();
@@ -47,7 +54,7 @@ export class ProdutoFormComponent implements OnInit {
 	getParam() {
 		this.active.params.subscribe((params) => {
 			const id = params.id;
-			if(id){
+			if (id) {
 				this.getById(id);
 			}
 		})
@@ -73,19 +80,23 @@ export class ProdutoFormComponent implements OnInit {
 			})
 	}
 
+	moeda(value) {
+		return moeda(value);
+	}
+
 	buildForm() {
 		this.formProduto = this.formBuilder.group({
 			nome: [null, Validators.compose([
 				Validators.required,
 				Validators.maxLength(100)
 			])],
+			preco: [null],
 			descricao: [null, Validators.compose([
 				Validators.maxLength(500)
 			])],
 			categoriaId: [null, Validators.compose([
 				Validators.required
 			])],
-			imageHash: [null]
 		})
 	}
 
@@ -99,11 +110,14 @@ export class ProdutoFormComponent implements OnInit {
 		},
 		categoriaId: {
 			required: "Este campo é obrigatório",
+		},
+		preco: {
+			
 		}
 	}
 
 	submitForm() {
-		if(this.object.id) {
+		if (this.object.id) {
 			this.editDb();
 		}
 		else {
@@ -112,8 +126,10 @@ export class ProdutoFormComponent implements OnInit {
 	}
 
 	insertDb() {
-		this.modalLoading.open();
+		this.uploadImage();	
+	}
 
+	insertObjectDb() {
 		this.object.estabelecimentoId = this.authS.currentUser['id'];
 
 		this.produtoS.Post(this.object)
@@ -146,17 +162,33 @@ export class ProdutoFormComponent implements OnInit {
 	}
 
 	fileChange(event) {
-		var image:any = new Image();
-		var file:File = event.target.files[0];
-		var myReader:FileReader = new FileReader();
-		myReader.onloadend = function (loadEvent:any) {
+		var image: any = new Image();
+		var file: File = event.target.files[0];
+		var myReader: FileReader = new FileReader();
+		
+		myReader.onloadend = function (loadEvent: any) {
 			image.src = loadEvent.target.result;
+						
+			this.imageUpload = file;
 			this.imagePreview = image.src;
-			var hash = image.src.split(",");
-			this.object.imageHash = hash[1];
+
 		}.bind(this);
 
 		myReader.readAsDataURL(file);
 	}
 
+	uploadImage() {
+		var formData = new FormData();
+		formData.append("files", this.imageUpload);
+
+		this.fileUploadS.uploadFile(formData)
+		.then((res) => {
+			this.object.caminhoImage = res.filesName[0];
+			this.insertObjectDb();
+		})
+		.catch((err) => {
+			this.toastService.show("Ocorreu um erro ao fazer upload. Tente novamente.", 4000, "red");
+			this.imagePreview = null;
+		})
+	}
 }

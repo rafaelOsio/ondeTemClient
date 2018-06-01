@@ -28,7 +28,8 @@ export class InterceptorService implements HttpInterceptor {
     
         return next.handle(request).map((event: HttpEvent<any>) => {
 			if (event instanceof HttpResponse) {
-				this.changeToken(event.body.token);
+                if(event.body.token != null)
+				    this.changeToken(event.body.token);
 				return event;
 			}
 		})

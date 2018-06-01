@@ -66,8 +66,8 @@ export class ProdutoListComponent implements OnInit {
 	tableConfiguration() {
 		this.tableConfig = {
 			columns: [
-				{ title: "Id", nameData: "id" },
 				{ title: "Nome", nameData: "nome"},
+				{ title: "Preço (R$)", nameData: "preco"},
 				{ title: "Acessos", nameData: "acessos"},
 				{ title: "Data cadastro", nameData: "dataCadastro"}
 			],

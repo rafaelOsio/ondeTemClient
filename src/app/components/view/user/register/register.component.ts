@@ -78,7 +78,6 @@ export class RegisterComponent implements OnInit {
 		this.modalLoading.open();
 
 		this.estabelecimentoS.Post(this.estabelecimento)
-			.toPromise()
 			.then((res: IResponse) => {
 				this.router.navigate(["/"]);
 				this.toastService.show("Cadastrado com sucesso. Seja bem vindo ao 'OndeTem?'.", 4000, 'green');

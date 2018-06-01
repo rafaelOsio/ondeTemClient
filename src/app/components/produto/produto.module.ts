@@ -12,6 +12,8 @@ import { ProdutoService } from './service/produto.service';
 import { TableModule } from '../table/table.module';
 import { LoaderModule } from '../loader/loader.module';
 import { DeleteModalModule } from '../delete-modal/delete-modal.module';
+import { ImageCropperModule } from 'ngx-img-cropper';
+import { FileUploadService } from '../../services/fileUpload.service';
 
 @NgModule({
   imports: [
@@ -26,6 +28,7 @@ import { DeleteModalModule } from '../delete-modal/delete-modal.module';
     LoaderModule,
     DeleteModalModule,
     MzModalModule,
+    ImageCropperModule
   ],
   declarations: [
     ProdutoListComponent, 
@@ -33,7 +36,8 @@ import { DeleteModalModule } from '../delete-modal/delete-modal.module';
     ProdutoFormComponent
   ],
   providers: [
-    ProdutoService
+    ProdutoService,
+    FileUploadService
   ]
 })
 export class ProdutoModule { }

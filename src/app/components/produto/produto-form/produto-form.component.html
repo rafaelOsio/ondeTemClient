@@ -1,42 +1,32 @@
 <div class="container">
-  
+
 	<div class="row" id="form-container">
 		<form [formGroup]="formProduto" id="form-container" (ngSubmit)="submitForm()" novalidate>
-			
+
 			<div class="row reset">
-				<mz-input-container class="col s12 m6 l4">
-					<input mz-input mz-validation required
-						[(ngModel)]="object.nome"	
-						formControlName="nome"
-						type="text"
-						id="input-name"
-						[errorMessageResource]="validateFields.nome"
-						[label]="'Nome:'" />
+				<mz-input-container class="col s12 m6 6">
+					<input mz-input mz-validation required [(ngModel)]="object.nome" formControlName="nome" type="text" id="input-name" [errorMessageResource]="validateFields.nome"
+					 [label]="'Nome:'" />
 				</mz-input-container>
-	
-				<mz-input-container class="col s12 m6 l4">
-					<input mz-input mz-validation
-						[(ngModel)]="object.descricao"
-						formControlName="descricao"
-						type="text"
-						id="input-descricao"
-						[errorMessageResource]="validateFields.descricao"
-						[label]="'Descrição:'" />
+
+				<mz-input-container class="col s12 m6 l6">
+					<input mz-input mz-validation [(ngModel)]="object.descricao" formControlName="descricao" type="text" id="input-descricao"
+					 [errorMessageResource]="validateFields.descricao" [label]="'Descrição:'" />
 				</mz-input-container>
-	
-				<mz-select-container class="col s12 m3 l4">
-					<select mz-select mz-validation required
-						[(ngModel)]="object.categoriaId"
-						formControlName="categoriaId"
-						id="input-categoria"
-						[errorMessageResource]="validateFields.categoriaId"
-						[label]="'Categoria'"
-						[placeholder]="'Selecione'">
-	
+
+				<mz-input-container class="col s12 m6 l6">
+					<input mz-input mz-validation [(ngModel)]="object.preco" (keyup)="object.preco = moeda(object.preco)" formControlName="preco"
+					 type="text" id="input-preco" [errorMessageResource]="validateFields.preco" [label]="'Preço:'" />
+				</mz-input-container>
+
+				<mz-select-container class="col s12 m3 l6">
+					<select mz-select mz-validation required [(ngModel)]="object.categoriaId" formControlName="categoriaId" id="input-categoria"
+					 [errorMessageResource]="validateFields.categoriaId" [label]="'Categoria'" [placeholder]="'Selecione'">
+
 						<option *ngFor="let item of categorias" [value]="item.id">{{item.nome}}</option>
-					  
+
 					</select>
-				  </mz-select-container>
+				</mz-select-container>
 			</div>
 
 			<div class="row reset">
@@ -67,7 +57,8 @@
 			</div>
 
 			<div class="col s12 m12 l12">
-				<button [disabled]="!formProduto.valid" type="submit" class="col s4 m3 l3 waves-effect waves-light btn blue reset" id="buttons" mz-button>SALVAR</button>
+				<button [disabled]="!formProduto.valid" type="submit" class="col s4 m3 l3 waves-effect waves-light btn blue reset" id="buttons"
+				 mz-button>SALVAR</button>
 				<a [routerLink]="['/dashboard/produtos']" class="col s3 m2 l2 waves-effect waves-light btn red reset" id="buttons">VOLTAR</a>
 			</div>
 
